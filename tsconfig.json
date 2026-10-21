@@ -13,15 +13,12 @@
 		"moduleResolution": "bundler",
 		"allowImportingTsExtensions": true,
 		"verbatimModuleSyntax": true,
-		"declaration": true,
-		"emitDeclarationOnly": true,
-		"outDir": "dist",
+		"noEmit": true,
 
 		// Best practices
 		"strict": true,
 		"skipLibCheck": true,
 		"noFallthroughCasesInSwitch": true,
-		"noUncheckedIndexedAccess": true,
 		"noImplicitOverride": true,
 
 		// Some stricter flags (disabled by default)

@@ -19,9 +19,20 @@
 	"files": [
 		"dist"
 	],
+	"keywords": [
+		"cities",
+		"geonames",
+		"i18n",
+		"geocoding",
+		"offline",
+		"search",
+		"timezone"
+	],
 	"scripts": {
-		"build": "rm -rf dist && bun build ./index.ts --outdir dist --target node && tsc",
-		"typecheck": "tsc --noEmit",
+		"build": "rm -rf dist && bun build ./src/index.ts --outdir dist --target node --splitting && tsc -p tsconfig.build.json",
+		"build:data": "bun scripts/build-data.ts",
+		"test": "bun test",
+		"typecheck": "tsc",
 		"lint": "biome check",
 		"format": "biome check --write"
 	},
