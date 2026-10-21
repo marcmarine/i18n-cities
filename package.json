@@ -1,0 +1,10 @@
+{
+	"name": "i18n-cities",
+	"version": "0.0.0",
+	"description": "Offline city search with translated city, region and country names, from GeoNames",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/marcmarine/i18n-cities.git"
+	},
+	"license": "MIT"
+}
