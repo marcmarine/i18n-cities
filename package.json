@@ -7,13 +7,25 @@
     "url": "https://github.com/marcmarine/i18n-cities.git"
   },
   "license": "MIT",
-  "module": "index.ts",
   "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
-  "peerDependencies": {
-    "typescript": "^7"
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && bun build ./index.ts --outdir dist --target node && tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.3",
+    "semantic-release": "^25.0.9",
+    "typescript": "^7.0.2"
   }
 }
