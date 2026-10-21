@@ -1,31 +1,34 @@
 {
-  "name": "i18n-cities",
-  "version": "0.0.0",
-  "description": "Offline city search with translated city, region and country names, from GeoNames",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/marcmarine/i18n-cities.git"
-  },
-  "license": "MIT",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "rm -rf dist && bun build ./index.ts --outdir dist --target node && tsc",
-    "typecheck": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@types/bun": "^1.4.3",
-    "semantic-release": "^25.0.9",
-    "typescript": "^7.0.2"
-  }
+	"name": "i18n-cities",
+	"version": "0.0.0",
+	"description": "Offline city search with translated city, region and country names, from GeoNames",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/marcmarine/i18n-cities.git"
+	},
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "rm -rf dist && bun build ./index.ts --outdir dist --target node && tsc",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check",
+		"format": "biome check --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.6.2",
+		"@types/bun": "^1.4.3",
+		"semantic-release": "^25.0.9",
+		"typescript": "^7.0.2"
+	}
 }
