@@ -2,6 +2,11 @@
 
 Offline city search with translated city, region and country names. Every city comes with its coordinates, population and time zone.
 
+[![npm version](https://img.shields.io/npm/v/i18n-cities)](https://www.npmjs.com/package/i18n-cities)
+[![Release](https://github.com/marcmarine/i18n-cities/actions/workflows/release.yml/badge.svg)](https://github.com/marcmarine/i18n-cities/actions/workflows/release.yml)
+[![Types](https://img.shields.io/npm/types/i18n-cities)](https://www.npmjs.com/package/i18n-cities)
+[![License](https://img.shields.io/npm/l/i18n-cities)](LICENSE)
+
 The data comes from [GeoNames](https://www.geonames.org/) and is bundled with the package, so searches need no network or API key.
 
 ## Usage
