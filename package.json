@@ -33,12 +33,21 @@
 	],
 	"keywords": [
 		"cities",
+		"city-search",
+		"world-cities",
+		"countries",
+		"regions",
 		"geonames",
 		"i18n",
+		"l10n",
+		"localization",
+		"translations",
+		"autocomplete",
 		"geocoding",
 		"offline",
 		"search",
-		"timezone"
+		"timezone",
+		"react-native"
 	],
 	"scripts": {
 		"build": "rm -rf dist && bun build ./src/index.ts ./src/10000.ts ./src/1000.ts ./src/locales/*.ts --outdir dist --target browser --splitting && tsc -p tsconfig.build.json",
