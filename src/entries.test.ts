@@ -1,7 +1,10 @@
 import { describe, expect, test } from 'bun:test'
 import { loadCities as load1000 } from './1000.ts'
 import { loadCities as load10000 } from './10000.ts'
+import { BASE_LOCALE, LOCALES } from './data.ts'
 import { loadCities } from './index.ts'
+
+const translated = LOCALES.filter((locale) => locale !== BASE_LOCALE)
 
 const locales = { es: () => import('./locales/es.ts') }
 
@@ -48,14 +51,17 @@ describe.each([
 		const files = await bundle(`./${size}.ts`)
 		expect(files.some((file) => file.startsWith(`cities-${size}-`))).toBe(true)
 		expect(files.some((file) => file.startsWith(otherList))).toBe(false)
-		expect(files.some((file) => file.startsWith('es-'))).toBe(false)
+		for (const locale of translated) {
+			expect(files.some((file) => file.startsWith(`${locale}-`))).toBe(false)
+		}
 	})
 })
 
 describe('i18n-cities', () => {
 	test('bundles every list and translation', async () => {
 		const files = await bundle('./index.ts')
-		for (const name of ['cities-1000-', 'cities-10000-', 'es-']) {
+		const names = translated.map((locale) => `${locale}-`)
+		for (const name of ['cities-1000-', 'cities-10000-', ...names]) {
 			expect(files.some((file) => file.startsWith(name))).toBe(true)
 		}
 	})

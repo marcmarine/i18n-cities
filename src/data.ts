@@ -5,7 +5,16 @@
 // GeoNames' English alternate names are often official forms ("Abu Dhabi
 // Island and Internal Islands City") or wrong ("Pujiang" for Puyang)
 export const BASE_LOCALE = 'en'
-export const LOCALES = [BASE_LOCALE, 'es'] as const
+export const LOCALES = [
+	BASE_LOCALE,
+	'ca',
+	'de',
+	'es',
+	'fr',
+	'it',
+	'nl',
+	'pt',
+] as const
 export const SIZES = [1000, 10000] as const
 
 export type Locale = (typeof LOCALES)[number]

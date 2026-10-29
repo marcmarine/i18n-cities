@@ -17,7 +17,13 @@ export type LoadOptions = {
 
 // Every translation, each in its own chunk
 const locales: Required<Locales> = {
+	ca: () => import('./locales/ca.ts'),
+	de: () => import('./locales/de.ts'),
 	es: () => import('./locales/es.ts'),
+	fr: () => import('./locales/fr.ts'),
+	it: () => import('./locales/it.ts'),
+	nl: () => import('./locales/nl.ts'),
+	pt: () => import('./locales/pt.ts'),
 }
 
 /**

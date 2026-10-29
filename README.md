@@ -22,20 +22,35 @@ cities.search('londres')
 //    longitude: -0.12574, population: 8961989, timezone: 'Europe/London' }, …]
 ```
 
+## Languages
+
+| locale | language   |
+| ------ | ---------- |
+| `en`   | English    |
+| `ca`   | Catalan    |
+| `de`   | German     |
+| `es`   | Spanish    |
+| `fr`   | French     |
+| `it`   | Italian    |
+| `nl`   | Dutch      |
+| `pt`   | Portuguese |
+
+English uses the GeoNames names, which are already in English for most places.
+
 ## API
 
 ### `loadCities({ locale?, size? })`
 
 Loads a city list and builds its search index. The list is imported dynamically, so bundlers put it in its own chunk. Calls with the same locale and size share the index.
-- `locale`: BCP 47 tag; only the language is used (`es-MX` → `es`). Supported: `en` and `es`. Anything else falls back to `en`. Defaults to `en`. English uses the GeoNames names, which are already in English for most places.
+- `locale`: BCP 47 tag; only the language is used (`es-MX` → `es`). Supported: see [Languages](#languages). Anything else falls back to `en`. Defaults to `en`.
 - `size`: the smallest population of the listed cities, `1000` or `10000`. Defaults to `10000`.
 
 | size    | cities  | data    | gzip    |
 | ------- | ------- | ------- | ------- |
-| `10000` | 45,243  | 3.2 MB  | 1.35 MB |
-| `1000`  | 148,469 | 10.5 MB | 4.2 MB  |
+| `10000` | 45,279  | 3.3 MB  | 1.35 MB |
+| `1000`  | 148,693 | 10.5 MB | 4.2 MB  |
 
-Each locale adds 0.1 MB (0.05 MB gzip).
+Each language but English adds its own file, from 66 to 139 KB (31 to 61 KB gzip). See [Languages](#languages).
 
 ### `i18n-cities/10000` and `i18n-cities/1000`
 
