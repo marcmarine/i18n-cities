@@ -14,6 +14,14 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
+		},
+		"./10000": {
+			"types": "./dist/10000.d.ts",
+			"import": "./dist/10000.js"
+		},
+		"./1000": {
+			"types": "./dist/1000.d.ts",
+			"import": "./dist/1000.js"
 		}
 	},
 	"files": [
@@ -29,7 +37,7 @@
 		"timezone"
 	],
 	"scripts": {
-		"build": "rm -rf dist && bun build ./src/index.ts --outdir dist --target node --splitting && tsc -p tsconfig.build.json",
+		"build": "rm -rf dist && bun build ./src/index.ts ./src/10000.ts ./src/1000.ts --outdir dist --target node --splitting && tsc -p tsconfig.build.json",
 		"build:data": "bun scripts/build-data.ts",
 		"test": "bun test",
 		"typecheck": "tsc",

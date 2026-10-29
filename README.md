@@ -32,6 +32,18 @@ Loads a city list and builds its search index. The list is imported dynamically,
 
 Each locale adds 0.1 MB (0.05 MB gzip).
 
+### `i18n-cities/10000` and `i18n-cities/1000`
+
+The same `loadCities`, for one list only. Bundlers keep both lists from `i18n-cities`, even when only one is loaded; these keep just theirs.
+
+```ts
+import { loadCities } from 'i18n-cities/10000'
+
+const cities = await loadCities({ locale: 'es' })
+```
+
+Takes the same options except `size`, and shares the index with `i18n-cities`.
+
 ### `cities.search(query, { limit? })`
 
 Cities whose name, region or country contain every word of the query, in the chosen language or in the base one, ignoring case and diacritics (`"japon"` finds `"Japón"`). Exact names go first, then names that start with the query, then the rest; ties go to the larger city. `limit` defaults to 20.
