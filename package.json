@@ -55,6 +55,7 @@
 		"test": "bun test",
 		"typecheck": "tsc",
 		"lint": "biome check",
+		"lint:package": "bunx publint@0.3.25 --strict",
 		"format": "biome check --write"
 	},
 	"devDependencies": {
