@@ -7,5 +7,6 @@
 		"rootDir": "src",
 		"outDir": "dist"
 	},
-	"files": ["src/index.ts", "src/10000.ts", "src/1000.ts"]
+	"include": ["src"],
+	"exclude": ["src/**/*.test.ts"]
 }

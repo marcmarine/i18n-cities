@@ -34,15 +34,23 @@ Each locale adds 0.1 MB (0.05 MB gzip).
 
 ### `i18n-cities/10000` and `i18n-cities/1000`
 
-The same `loadCities`, for one list only. Bundlers keep both lists from `i18n-cities`, even when only one is loaded; these keep just theirs.
+Bundlers keep both lists and every translation from `i18n-cities`, each in its own chunk, even when they are never loaded. These keep only their list and the translations you pass in `locales`, so they also suit bundlers that do not split chunks, such as Metro in React Native.
 
 ```ts
 import { loadCities } from 'i18n-cities/10000'
 
-const cities = await loadCities({ locale: 'es' })
+const cities = await loadCities({
+	locale: navigator.language,
+	locales: {
+		es: () => import('i18n-cities/locales/es'),
+	},
+})
 ```
 
-Takes the same options except `size`, and shares the index with `i18n-cities`.
+- `locale`: as in `loadCities` above, but anything not in `locales` falls back to `en`.
+- `locales`: an import for each translation the app ships. English needs none.
+
+They share the index with `i18n-cities`.
 
 ### `cities.search(query, { limit? })`
 

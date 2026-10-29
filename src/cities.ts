@@ -1,4 +1,5 @@
 import {
+	BASE_LOCALE,
 	type BaseData,
 	LOCALES,
 	type Locale,
@@ -26,10 +27,19 @@ export type City = {
 	timezone: string
 }
 
+// Imports of the translations an app ships, e.g.
+// `{ es: () => import('i18n-cities/locales/es') }`. English needs none
+export type Locales = {
+	[locale in Exclude<Locale, typeof BASE_LOCALE>]?: () => Promise<{
+		default: LocaleData
+	}>
+}
+
 export type LoadOptions = {
-	// BCP 47 tag; only the language is used ("es-MX" → "es"). Unsupported
-	// languages fall back to English
+	// BCP 47 tag; only the language is used ("es-MX" → "es"). Languages that
+	// are not in `locales` fall back to English
 	locale?: string
+	locales?: Locales
 }
 
 export type Cities = {
@@ -43,17 +53,6 @@ export type Cities = {
 	search(query: string, options?: { limit?: number }): City[]
 }
 
-function importLocale(locale: Locale): Promise<LocaleData> {
-	switch (locale) {
-		case 'en':
-			return Promise.resolve({ countries: {}, regions: {}, cities: {} })
-		case 'es':
-			return import('../data/locales/es.json').then(
-				(module) => module.default as LocaleData,
-			)
-	}
-}
-
 export function resolveLocale(locale = 'en'): Locale {
 	const language = locale.split(/[-_]/)[0].toLowerCase()
 	return (LOCALES as readonly string[]).includes(language)
@@ -61,21 +60,28 @@ export function resolveLocale(locale = 'en'): Locale {
 		: 'en'
 }
 
+const noTranslations: LocaleData = { countries: {}, regions: {}, cities: {} }
+
 // Shared by every entry point, so a list and locale are indexed once whichever
 // one loads them
 const loaded = new Map<string, Promise<Cities>>()
 
-// Each entry point passes the import of its own list, so bundlers only see
-// that one
+// Each entry point passes the import of its own list, and apps pass the
+// translations they ship, so bundlers only see those
 export function createLoader(size: Size, importBase: () => Promise<BaseData>) {
-	return ({ locale }: LoadOptions = {}): Promise<Cities> => {
-		const resolved = resolveLocale(locale)
+	return ({ locale, locales = {} }: LoadOptions = {}): Promise<Cities> => {
+		const language = resolveLocale(locale)
+		const importLocale =
+			language === BASE_LOCALE ? undefined : locales[language]
+		const resolved = importLocale ? language : BASE_LOCALE
 		const key = `${resolved}:${size}`
 		let cities = loaded.get(key)
 		if (!cities) {
-			cities = Promise.all([importBase(), importLocale(resolved)]).then(
-				([base, translations]) =>
-					createCities(resolved, size, base, translations),
+			cities = Promise.all([
+				importBase(),
+				importLocale?.().then((module) => module.default) ?? noTranslations,
+			]).then(([base, translations]) =>
+				createCities(resolved, size, base, translations),
 			)
 			cities.catch(() => loaded.delete(key))
 			loaded.set(key, cities)

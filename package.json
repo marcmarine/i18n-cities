@@ -22,6 +22,10 @@
 		"./1000": {
 			"types": "./dist/1000.d.ts",
 			"import": "./dist/1000.js"
+		},
+		"./locales/*": {
+			"types": "./dist/locales/*.d.ts",
+			"import": "./dist/locales/*.js"
 		}
 	},
 	"files": [
@@ -37,7 +41,7 @@
 		"timezone"
 	],
 	"scripts": {
-		"build": "rm -rf dist && bun build ./src/index.ts ./src/10000.ts ./src/1000.ts --outdir dist --target node --splitting && tsc -p tsconfig.build.json",
+		"build": "rm -rf dist && bun build ./src/index.ts ./src/10000.ts ./src/1000.ts ./src/locales/*.ts --outdir dist --target node --splitting && tsc -p tsconfig.build.json",
 		"build:data": "bun scripts/build-data.ts",
 		"test": "bun test",
 		"typecheck": "tsc",
