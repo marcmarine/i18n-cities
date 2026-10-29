@@ -22,7 +22,7 @@ cities.search('londres')
 ### `loadCities({ locale?, size? })`
 
 Loads a city list and builds its search index. The list is imported dynamically, so bundlers put it in its own chunk. Calls with the same locale and size share the index.
-- `locale`: BCP 47 tag; only the language is used (`es-MX` → `es`). Supported: `en` and `es`. Anything else falls back to `en`. Defaults to `en`.
+- `locale`: BCP 47 tag; only the language is used (`es-MX` → `es`). Supported: `en` and `es`. Anything else falls back to `en`. Defaults to `en`. English uses the GeoNames names, which are already in English for most places.
 - `size`: the smallest population of the listed cities, `1000` or `10000`. Defaults to `10000`.
 
 | size    | cities  | data    | gzip    |

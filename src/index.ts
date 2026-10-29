@@ -63,9 +63,7 @@ function importBase(size: Size): Promise<BaseData> {
 function importLocale(locale: Locale): Promise<LocaleData> {
 	switch (locale) {
 		case 'en':
-			return import('../data/locales/en.json').then(
-				(module) => module.default as LocaleData,
-			)
+			return Promise.resolve({ countries: {}, regions: {}, cities: {} })
 		case 'es':
 			return import('../data/locales/es.json').then(
 				(module) => module.default as LocaleData,

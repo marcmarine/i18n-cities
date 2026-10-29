@@ -18,6 +18,13 @@ describe.each(SIZES)('loadCities, size %d', (size) => {
 		expect(label(esCity)).toBe('Barcelona, Cataluña, España')
 	})
 
+	test('uses the GeoNames names in English', async () => {
+		const cities = await english
+		expect(cities.search('abu dhabi')[0]?.name).toBe('Abu Dhabi')
+		expect(cities.search('puyang')[0]?.name).toBe('Puyang')
+		expect(cities.search('hyderabad')[0]?.name).toBe('Hyderabad')
+	})
+
 	test('finds cities by their translated name', async () => {
 		const [city] = (await spanish).search('Londres')
 		expect(label(city)).toBe('Londres, Inglaterra, Reino Unido')

@@ -7,6 +7,7 @@
 import { mkdir, stat } from 'node:fs/promises'
 import { gzipSync } from 'node:zlib'
 import {
+	BASE_LOCALE,
 	type BaseData,
 	type CityRow,
 	LOCALES,
@@ -104,7 +105,10 @@ const cityIds = new Set(cities.map((city) => String(city[0])))
 // Every usable alternate name, per locale and place, in file order
 type Candidate = { name: string; preferred: boolean; short: boolean }
 const candidates = new Map<string, Map<string, Candidate[]>>(
-	LOCALES.map((locale) => [locale, new Map()]),
+	LOCALES.filter((locale) => locale !== BASE_LOCALE).map((locale) => [
+		locale,
+		new Map(),
+	]),
 )
 
 // Abbreviations such as "UK", "RU" or "EE. UU."

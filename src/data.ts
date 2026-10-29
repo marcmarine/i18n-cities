@@ -1,7 +1,11 @@
 // Shapes of the generated files in data/, shared by the build script and the
 // runtime
 
-export const LOCALES = ['en', 'es'] as const
+// The GeoNames names are already English, so English has no locale file:
+// GeoNames' English alternate names are often official forms ("Abu Dhabi
+// Island and Internal Islands City") or wrong ("Pujiang" for Puyang)
+export const BASE_LOCALE = 'en'
+export const LOCALES = [BASE_LOCALE, 'es'] as const
 export const SIZES = [1000, 10000] as const
 
 export type Locale = (typeof LOCALES)[number]
