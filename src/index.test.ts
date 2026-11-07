@@ -31,6 +31,12 @@ describe.each(SIZES)('loadCities, size %d', (size) => {
 		expect(cities.search('madrid')[0]?.country).toBe(spain)
 	})
 
+	test('leaves out districts and neighbourhoods', async () => {
+		const cities = await english
+		expect(cities.search('ciutat vella')).toEqual([])
+		expect(cities.search('eixample')).toEqual([])
+	})
+
 	test('uses the GeoNames names in English', async () => {
 		const cities = await english
 		expect(cities.search('abu dhabi')[0]?.name).toBe('Abu Dhabi')

@@ -83,11 +83,18 @@ for await (const line of lines(admin1File)) {
 	regionIds.set(id, code)
 }
 
+// GeoNames feature codes of places that are not cities: sections of a city
+// such as districts and neighbourhoods ("Ciutat Vella" in Barcelona), and
+// historical, abandoned or destroyed places
+// (https://www.geonames.org/export/codes.html)
+const notCities = new Set(['PPLX', 'PPLH', 'PPLQ', 'PPLW', 'PPLCH'])
+
 // Cities, largest first so the lists read naturally and ties keep that order
 const cities: CityRow[] = []
 for await (const line of lines(citiesZip, 'cities1000.txt')) {
 	if (!line) continue
 	const cols = line.split('\t')
+	if (notCities.has(cols[7])) continue
 	cities.push([
 		Number(cols[0]),
 		cols[1],

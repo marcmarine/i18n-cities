@@ -45,12 +45,12 @@ Loads a city list and builds its search index. The list is imported dynamically,
 - `locale`: BCP 47 tag; only the language is used (`es-MX` → `es`). Supported: see [Languages](#languages). Anything else falls back to `en`. Defaults to `en`.
 - `size`: the smallest population of the listed cities, `1000` or `10000`. Defaults to `10000`.
 
-| size    | cities  | data    | gzip    |
-| ------- | ------- | ------- | ------- |
-| `10000` | 45,279  | 3.3 MB  | 1.35 MB |
-| `1000`  | 148,693 | 10.5 MB | 4.2 MB  |
+| size    | cities  | data   | gzip    |
+| ------- | ------- | ------ | ------- |
+| `10000` | 41,917  | 3.0 MB | 1.25 MB |
+| `1000`  | 138,976 | 9.8 MB | 3.95 MB |
 
-Each language but English adds its own file, from 66 to 139 KB (31 to 61 KB gzip). See [Languages](#languages).
+Each language but English adds its own file, from 65 to 137 KB (30 to 58 KB gzip). See [Languages](#languages).
 
 ### `i18n-cities/10000` and `i18n-cities/1000`
 
