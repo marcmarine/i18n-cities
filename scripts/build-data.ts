@@ -163,19 +163,15 @@ function choose(id: string, list: Candidate[]) {
 	return (shortened ?? preferred).name
 }
 
-const stripDiacritics = (value: string) =>
-	value
-		.normalize('NFD')
-		.replace(/\p{Diacritic}/gu, '')
-		.normalize('NFC')
-
 // Only names that differ from the base ones are kept. A translation that is
-// just the base name without diacritics ("Karditsa" for "Kardítsa") is not
-// worth it
+// just the base name without diacritics ("Karditsa" for "Kardítsa", "Wroclaw"
+// for "Wrocław") is not worth it, but one that adds them ("Meißen" for
+// "Meissen") is
 function differs(name: string, base: string) {
 	if (name === base) return false
 	return !(
-		normalize(name) === normalize(base) && name === stripDiacritics(name)
+		normalize(name) === normalize(base) &&
+		normalize(name) === name.toLowerCase()
 	)
 }
 

@@ -64,6 +64,14 @@ describe.each(SIZES)('loadCities, size %d', (size) => {
 		expect(city.country).toBe('Japón')
 	})
 
+	test.each([
+		['bialystok', 'Białystok'],
+		['tromso', 'Tromsø'],
+		['hafnarfjordur', 'Hafnarfjörður'],
+	])('matches letters that are not decomposable: %s', async (query, name) => {
+		expect((await english).search(query)[0]?.name).toBe(name)
+	})
+
 	test('ranks exact names before names that start with the query', async () => {
 		// Every city called Paris goes before "Parish" or "Parisot"
 		const results = (await english).search('Paris')
