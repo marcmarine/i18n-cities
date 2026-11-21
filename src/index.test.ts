@@ -92,6 +92,16 @@ describe.each(SIZES)('loadCities, size %d', (size) => {
 		expect((await english).search('san', { limit: 3 })).toHaveLength(3)
 	})
 
+	test('gets a city by its id', async () => {
+		const [city] = (await spanish).search('Londres')
+		expect((await spanish).get(city.id)).toBe(city)
+		expect((await english).get(city.id)?.name).toBe('London')
+	})
+
+	test('gets nothing for an unknown id', async () => {
+		expect((await english).get(-1)).toBeUndefined()
+	})
+
 	test('includes coordinates, population and time zone', async () => {
 		const [city] = (await english).search('barcelona')
 		expect(city.timezone).toBe('Europe/Madrid')

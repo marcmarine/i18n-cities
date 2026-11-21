@@ -51,6 +51,8 @@ export type Cities = {
 	// one) contain every word of the query. Exact names go first, then names
 	// that start with the query, then the rest; ties by population
 	search(query: string, options?: { limit?: number }): City[]
+	// The city with that GeoNames id, or undefined if it is not in the list
+	get(id: number): City | undefined
 }
 
 export function resolveLocale(locale = 'en'): Locale {
@@ -98,6 +100,7 @@ function createCities(
 ): Cities {
 	const count = base.cities.length
 	const all: City[] = new Array(count)
+	const byId = new Map<number, City>()
 	// Normalized names (translated and base) used to rank the matches
 	const names: string[][] = new Array(count)
 	// Every searchable field joined by newlines. Query words never contain
@@ -130,6 +133,7 @@ function createCities(
 			timezone,
 		}
 		all[i] = city
+		byId.set(id, city)
 
 		const cityNames = unique([normalize(city.name), normalize(baseName)])
 		names[i] = cityNames
@@ -146,6 +150,10 @@ function createCities(
 		locale,
 		size,
 		all,
+
+		get(id) {
+			return byId.get(id)
+		},
 
 		search(query, { limit = 20 } = {}) {
 			const words = normalize(query).split(/\s+/).filter(Boolean)

@@ -76,6 +76,18 @@ They share the index with `i18n-cities`.
 
 Cities whose name, region or country contain every word of the query, in the chosen language or in the base one, ignoring case and diacritics (`"japon"` finds `"Japón"`). Exact names go first, then names that start with the query, then the rest; ties go to the larger city. `limit` defaults to 20.
 
+### `cities.get(id)`
+
+The city with that GeoNames id, or `undefined` if it is not in the list. Store only the id of the chosen city and look it up again later, in any language:
+
+```ts
+const spanish = await loadCities({ locale: 'es' })
+const id = spanish.search('londres')[0].id // save only this
+
+const english = await loadCities({ locale: 'en' })
+english.get(id)?.name // 'London'
+```
+
 ### `cities.all`
 
 Every city in the list, largest first.
